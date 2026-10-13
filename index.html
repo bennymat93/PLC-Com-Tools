@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLC Com Tools — PLC to Excel</title>
+<meta name="description" content="PLC to Excel: export Control Expert, TIA Portal, Micro/WIN SMART and DSE projects to structured Excel workbooks.">
+<link rel="icon" href="icon.ico">
+<style>
+:root{--bg:#f5f7fb;--surface:#fff;--text:#1c2128;--muted:#5f6b7a;--accent:#1f4e8c;--accent2:#2a7fd4;--border:#d8dfe8;--ok:#16803c}
+@media (prefers-color-scheme:dark){:root{--bg:#15181e;--surface:#1f242c;--text:#e6eaf0;--muted:#98a3b3;--accent:#4f8fd8;--accent2:#6aa8ee;--border:#333b47;--ok:#5ad282}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent2)}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+header{background:linear-gradient(160deg,#1d4a86 0%,#0b1b36 100%);color:#fff;padding:44px 0 52px}
+.hero{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.hero img{width:132px;height:132px;filter:drop-shadow(0 10px 22px rgba(0,0,0,.45))}
+.hero h1{margin:0;font-size:34px;font-weight:600}
+.hero p{margin:6px 0 0;color:#c7d7ee;font-size:17px}
+.suite{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#8fb2e0}
+.btns{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:600;text-decoration:none;font-size:15px}
+.btn.primary{background:#3b8fe6;color:#fff;box-shadow:0 6px 18px rgba(30,110,220,.35)}
+.btn.primary:hover{background:#4c9cf0}
+.btn.ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
+.meta{margin-top:12px;font-size:13px;color:#a9bfdd}
+main{padding:34px 0 50px}
+h2{font-size:22px;margin:34px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.card code{direction:ltr;unicode-bidi:embed;font-size:12.5px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-size:14.5px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right;vertical-align:top}
+th{background:var(--bg);font-weight:600}
+td.ltr{direction:ltr;text-align:right;white-space:nowrap}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.shots img{width:100%;border-radius:10px;border:1px solid var(--border)}
+.note{background:var(--surface);border-right:4px solid var(--accent);border-radius:6px;padding:12px 16px;margin:14px 0;font-size:14.5px}
+footer{border-top:1px solid var(--border);padding:22px 0;color:var(--muted);font-size:13px}
+.old a{font-size:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap hero">
+    <img src="icon_512.png" alt="PLC to Excel">
+    <div>
+      <div class="suite">PLC Com Tools</div>
+      <h1>PLC to Excel</h1>
+      <p>ייצוא פרויקטי בקרים לטבלאות Excel מסודרות — חומרה, רשימת IO עם שמות, תגיות, קוד והגדרות.</p>
+      <div class="btns">
+        <a class="btn primary" href="https://github.com/bennymat93/PLC-Com-Tools/releases/latest/download/PlcToExcel_Setup_V0.1.exe">⬇ הורדה ל-Windows — V0.1</a>
+        <a class="btn ghost" href="guide.html">מדריך למשתמש</a>
+      </div>
+      <div class="meta">Windows 10/11 · 64-bit · התקנה בעברית/אנגלית · <a href="https://github.com/bennymat93/PLC-Com-Tools/releases" style="color:#cfe0f7">כל הגרסאות</a></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>תוכנות נתמכות</h2>
+  <table>
+    <tr><th>תוכנה</th><th>קבצים</th><th>מה מיוצא</th></tr>
+    <tr><td>Schneider Control Expert (M580, M340)</td><td class="ltr">.zef .xef</td><td>מסילות וכרטיסים, IO עם שמות, משתנים, מפת זיכרון, קוד ST/FBD, DDT/DFB, רשת</td></tr>
+    <tr><td>Siemens TIA Portal V16–V21</td><td class="ltr">.ap16–.ap21 · .zap16–.zap21</td><td>התקנים, מק"טים, קושחה, IP/PROFINET, IO ממופה לכרטיסים (כולל תחנות מרוחקות), תגיות, בלוקים, קוד SCL ו-LAD</td></tr>
+    <tr><td>Siemens STEP 7-Micro/WIN SMART</td><td class="ltr">.smart</td><td>דגם CPU וקושחה, IP, IO עם סמלים, טבלאות סמלים, מפת זיכרון, בלוקים</td></tr>
+    <tr><td>Deep Sea Electronics (DSE)</td><td class="ltr">.dse</td><td>כניסות/יציאות ותפקידן, הגנות והתראות, כל הפרמטרים עם משמעות</td></tr>
+  </table>
+
+  <h2>יכולות</h2>
+  <div class="grid">
+    <div class="card"><h3>רשימת IO מלאה</h3><p>כל ערוץ בכל כרטיס עם שם, כתובת, הערה ואיפה הוא בשימוש בקוד.</p></div>
+    <div class="card"><h3>גרור ושחרר</h3><p>גרירת קובץ, כמה קבצים או תיקייה — או לחיצה ימנית ← <b>Export to Excel</b>.</p></div>
+    <div class="card"><h3>סיסמאות</h3><p>בקשת סיסמה לפרויקטים ובלוקים מוגנים; אחרי 10 דקות ממשיך אוטומטית עם מה שזמין.</p></div>
+    <div class="card"><h3>בטוח למקור</h3><p>קבצי הפרויקט לא משתנים לעולם. כל העיבוד מקומי, שום דבר לא נשלח לרשת.</p></div>
+    <div class="card"><h3>Excel מקצועי</h3><p>כותרות מוקפאות, סינון בכל עמודה, גיליון סיכום עם פרטי הבקר.</p></div>
+    <div class="card"><h3>בהיר / כהה</h3><p>ערכת נושא בהירה, כהה או לפי Windows. עזרה מלאה בעברית (F1).</p></div>
+  </div>
+
+  <h2>צילומי מסך</h2>
+  <div class="shots">
+    <img src="screenshots/ui_Light.png" alt="Light theme">
+    <img src="screenshots/ui_Dark.png" alt="Dark theme">
+  </div>
+
+  <h2>התקנה</h2>
+  <ol>
+    <li>הורד את <b>PlcToExcel_Setup_V0.1.exe</b> והפעל.</li>
+    <li>אם Windows מציג "Windows protected your PC" — לחץ <b>More info</b> ← <b>Run anyway</b> (הקובץ אינו חתום דיגיטלית).</li>
+    <li>בחר שפה, תיקייה ואפשרויות — והתוכנה מוכנה.</li>
+  </ol>
+  <div class="note">קריאת פרויקטי <b>TIA Portal</b> דורשת TIA Portal V21 מותקן במחשב. בשימוש הראשון TIA יבקש אישור גישה — לחץ <b>Yes to all</b>.</div>
+
+  <h2>גרסאות קודמות</h2>
+  <p class="old"><a href="https://github.com/bennymat93/PLC-Com-Tools/releases/download/xef-to-excel-v1.0/XefToExcel_Setup.exe">XEF to Excel v1.0</a> — הכלי הראשון (Control Expert / M580 בלבד).</p>
+</main>
+
+<footer>
+  <div class="wrap">PLC Com Tools · <a href="guide.html">מדריך</a> · <a href="privacy.html">פרטיות</a> · <a href="https://github.com/bennymat93/PLC-Com-Tools/releases">Releases</a><br>
+  Siemens, TIA Portal, Schneider Electric, Control Expert, Deep Sea Electronics ו-Microsoft Excel הם סימנים מסחריים של בעליהם. הכלי אינו קשור ליצרנים אלה.</div>
+</footer>
+</body>
+</html>

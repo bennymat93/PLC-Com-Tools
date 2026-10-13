@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLC to Excel — מדריך למשתמש</title><link rel="icon" href="icon.ico">
+<style>
+:root{--bg:#f5f7fb;--surface:#fff;--text:#1c2128;--muted:#5f6b7a;--accent:#1f4e8c;--border:#d8dfe8}
+@media (prefers-color-scheme:dark){:root{--bg:#15181e;--surface:#1f242c;--text:#e6eaf0;--muted:#98a3b3;--accent:#6aa8ee;--border:#333b47}}
+body{margin:0;font-family:"Segoe UI",system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:26px 20px 60px}
+h1{color:var(--accent);font-size:28px} h2{border-top:1px solid var(--border);padding-top:14px;margin-top:30px}
+a{color:var(--accent)} table{border-collapse:collapse;width:100%;background:var(--surface)}
+th,td{border:1px solid var(--border);padding:7px 10px;text-align:right;vertical-align:top} th{background:var(--bg)}
+code{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:13px}
+blockquote{margin:12px 0;padding:10px 16px;background:var(--surface);border-right:4px solid var(--accent);border-radius:6px}
+.top{display:flex;align-items:center;gap:12px} .top img{width:44px;height:44px}
+</style></head><body><div class="wrap">
+<div class="top"><img src="icon_512.png" alt=""><a href="index.html">PLC Com Tools — PLC to Excel</a></div>
+<div class="markdown-heading"><h1 class="heading-element">מדריך למשתמש — PLC to Excel V0.1</h1><a id="user-content-מדריך-למשתמש--plc-to-excel-v01" class="anchor" aria-label="Permalink: מדריך למשתמש — PLC to Excel V0.1" href="#מדריך-למשתמש--plc-to-excel-v01"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>הכלי קורא קובץ פרויקט של בקר ומפיק ממנו קובץ <strong>Excel</strong> מסודר: חומרה וכרטיסים, רשימת IO עם שמות, תגיות ומשתנים, בלוקים וקוד, הגדרות תקשורת ופרמטרים. קבצי הפרויקט המקוריים <strong>לעולם אינם משתנים</strong>.</p>
+<div class="markdown-heading"><h2 class="heading-element">התקנה</h2><a id="user-content-התקנה" class="anchor" aria-label="Permalink: התקנה" href="#התקנה"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<ol>
+<li>הורד את <code>PlcToExcel_Setup_V0.1.exe</code> מ-<a href="https://github.com/bennymat93/PLC-Com-Tools/releases">Releases</a> והפעל.</li>
+<li>בחר שפה, תיקיית התקנה, והאם להוסיף קיצור דרך בשולחן העבודה ו-"Export to Excel" ללחיצה ימנית.</li>
+<li>הסרה: הגדרות Windows ← אפליקציות ← PLC to Excel ← הסר.</li>
+</ol>
+<p>דרישות: Windows 10/11 ‏64-bit. לקריאת פרויקטי TIA Portal נדרש <strong>TIA Portal V21</strong> מותקן.</p>
+<div class="markdown-heading"><h2 class="heading-element">התחלה מהירה</h2><a id="user-content-התחלה-מהירה" class="anchor" aria-label="Permalink: התחלה מהירה" href="#התחלה-מהירה"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<ol>
+<li>גרור קובץ פרויקט לחלון (או <code>Ctrl+O</code>, או לחיצה ימנית על הקובץ ← <strong>Export to Excel</strong>).</li>
+<li>בדוק את נתיב קובץ היעד (ברירת מחדל: ליד קובץ הפרויקט, <code>&lt;שם&gt;_Export.xlsx</code>).</li>
+<li>לחץ <strong>Export to Excel</strong> (או <code>F5</code>). הקובץ ייפתח ב-Excel בסיום.</li>
+</ol>
+<p>אפשר לגרור כמה קבצים או תיקייה שלמה — כולם ייוצאו ברצף.</p>
+<div class="markdown-heading"><h2 class="heading-element">פורמטים נתמכים</h2><a id="user-content-פורמטים-נתמכים" class="anchor" aria-label="Permalink: פורמטים נתמכים" href="#פורמטים-נתמכים"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<table>
+<thead>
+<tr>
+<th>תוכנה</th>
+<th>סיומות</th>
+<th>איך לקבל את הקובץ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schneider Control Expert (M580, M340…)</td>
+<td>
+<code>.zef</code> <code>.xef</code>
+</td>
+<td>File ← Export Project ← ZEF/XEF (<code>.stu</code> לא נתמך)</td>
+</tr>
+<tr>
+<td>Siemens TIA Portal V16–V21</td>
+<td>
+<code>.ap16</code>–<code>.ap21</code>, <code>.zap16</code>–<code>.zap21</code>
+</td>
+<td>קובץ הפרויקט או ארכיון (Project ← Archive)</td>
+</tr>
+<tr>
+<td>Siemens STEP 7-Micro/WIN SMART</td>
+<td><code>.smart</code></td>
+<td>קובץ הפרויקט</td>
+</tr>
+<tr>
+<td>Deep Sea Electronics</td>
+<td><code>.dse</code></td>
+<td>DSE Configuration Suite ← Save</td>
+</tr>
+<tr>
+<td>Mitsubishi GX Works 2/3</td>
+<td>
+<code>.gxw</code> <code>.gx3</code>
+</td>
+<td>בפיתוח</td>
+</tr>
+</tbody>
+</table>
+<div class="markdown-heading"><h2 class="heading-element">מה יש בקובץ ה-Excel</h2><a id="user-content-מה-יש-בקובץ-ה-excel" class="anchor" aria-label="Permalink: מה יש בקובץ ה-Excel" href="#מה-יש-בקובץ-ה-excel"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<table>
+<thead>
+<tr>
+<th>גיליון</th>
+<th>תוכן</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Summary</td>
+<td>פרטי פרויקט, דגם בקר, IP, ספירות, הערות</td>
+</tr>
+<tr>
+<td>Hardware</td>
+<td>כרטיסים: סלוט, מק"ט, קושחה, כתובות</td>
+</tr>
+<tr>
+<td>IO_List</td>
+<td>כל ערוץ: כרטיס, DI/DO/AI/AO, ערוץ, כתובת, <strong>שם</strong>, הערה, שימוש בקוד</td>
+</tr>
+<tr>
+<td>Tags / Variables / Symbols</td>
+<td>משתנים עם סוג, כתובת, ערך התחלתי והערה</td>
+</tr>
+<tr>
+<td>Blocks / Networks_Code</td>
+<td>בלוקים וקוד (ST/SCL מלא; LAD/FBD — מגעים, סלילים ואופרנדים)</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>ממשקים, IP, מסכות, שמות PROFINET</td>
+</tr>
+<tr>
+<td>Alarms_Protections (DSE)</td>
+<td>הגנות והתראות: פעולה, השהייה, ערכים</td>
+</tr>
+</tbody>
+</table>
+<p>בכל גיליון: כותרת מוקפאת וסינון בכל עמודה.</p>
+<div class="markdown-heading"><h2 class="heading-element">סיסמאות והגנות</h2><a id="user-content-סיסמאות-והגנות" class="anchor" aria-label="Permalink: סיסמאות והגנות" href="#סיסמאות-והגנות"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<ul>
+<li>
+<strong>TIA — פרויקט מוגן (UMAC):</strong> חלון שם משתמש וסיסמה.</li>
+<li>
+<strong>TIA — בלוקים מוגנים (Know-how):</strong> חלון סיסמה אחד; ההגנה מוסרת רק בעותק הזמני.</li>
+<li>
+<strong>Control Expert — DFB מוגן:</strong> מוצפן ע"י Schneider; הממשק מיוצא, הקוד לא (גיליון Protected_Items).</li>
+<li>
+<strong>DSE — PIN/סיסמה:</strong> מוצפנים בקובץ ואינם נדרשים; מוצגים כמוסתרים.</li>
+</ul>
+<blockquote>
+<p>כל חלון סיסמה נסגר אוטומטית אחרי <strong>10 דקות</strong> ללא קלט, והייצוא ממשיך עם כל מה שזמין.</p>
+</blockquote>
+<div class="markdown-heading"><h2 class="heading-element">TIA Portal</h2><a id="user-content-tia-portal" class="anchor" aria-label="Permalink: TIA Portal" href="#tia-portal"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<ul>
+<li>בשימוש הראשון TIA מציג <strong>Openness – Grant access</strong> ← לחץ <strong>Yes to all</strong>.</li>
+<li>המשתמש צריך להיות בקבוצת Windows <code>Siemens TIA Openness</code>.</li>
+<li>פתיחה: 1–2 דקות. פרויקטים V16–V20 משודרגים ומקומפלים בעותק זמני שנמחק בסיום.</li>
+</ul>
+<div class="markdown-heading"><h2 class="heading-element">אפשרויות</h2><a id="user-content-אפשרויות" class="anchor" aria-label="Permalink: אפשרויות" href="#אפשרויות"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>ערכת נושא בהירה/כהה/לפי Windows · פתיחת Excel/תיקייה בסיום · תאריך בשם הקובץ · תיקיית יעד קבועה · קבצים אחרונים · ייצוא מרובה. אם קובץ היעד פתוח ב-Excel — נשמר אוטומטית כ-<code>_2</code>, <code>_3</code>.</p>
+<div class="markdown-heading"><h2 class="heading-element">קיצורי מקלדת</h2><a id="user-content-קיצורי-מקלדת" class="anchor" aria-label="Permalink: קיצורי מקלדת" href="#קיצורי-מקלדת"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<table>
+<thead>
+<tr>
+<th>מקש</th>
+<th>פעולה</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl+O</code></td>
+<td>פתח פרויקט</td>
+</tr>
+<tr>
+<td><code>Ctrl+Shift+O</code></td>
+<td>ייצוא מרובה</td>
+</tr>
+<tr>
+<td>
+<code>F5</code> / <code>Ctrl+E</code>
+</td>
+<td>ייצוא</td>
+</tr>
+<tr>
+<td><code>Ctrl+L</code></td>
+<td>פתח תיקיית יעד</td>
+</tr>
+<tr>
+<td><code>F1</code></td>
+<td>עזרה</td>
+</tr>
+</tbody>
+</table>
+<p>שורת פקודה: <code>PlcToExcel.exe &lt;project&gt; [output.xlsx]</code></p>
+<div class="markdown-heading"><h2 class="heading-element">פתרון בעיות</h2><a id="user-content-פתרון-בעיות" class="anchor" aria-label="Permalink: פתרון בעיות" href="#פתרון-בעיות"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<table>
+<thead>
+<tr>
+<th>הודעה</th>
+<th>פתרון</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TIA Portal did not grant access</td>
+<td>אשר Yes to all בחלון של TIA והפעל שוב</td>
+</tr>
+<tr>
+<td>TIA Portal V21 must be installed</td>
+<td>התקן TIA V21 או עבוד במחשב שבו הוא מותקן</td>
+</tr>
+<tr>
+<td>Inconsistent blocks…</td>
+<td>יש שגיאות קומפילציה בפרויקט — תקן ב-TIA</td>
+</tr>
+<tr>
+<td>Cannot write file</td>
+<td>הקובץ תפוס או אין הרשאה — בחר תיקייה אחרת</td>
+</tr>
+</tbody>
+</table>
+<p>יומנים: <code>%APPDATA%\PlcToExcel\logs</code> (Help ← Open log folder) — צרף לדיווח תקלה.</p>
+<div class="markdown-heading"><h2 class="heading-element">פרטיות</h2><a id="user-content-פרטיות" class="anchor" aria-label="Permalink: פרטיות" href="#פרטיות"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>כל העיבוד מקומי, שום מידע לא נשלח לרשת. סיסמאות לא נשמרות לדיסק או ליומן.</p>
+<p style="color:var(--muted);margin-top:40px"><a href="index.html">הורדה</a> · <a href="privacy.html">פרטיות</a></p>
+</div></body></html>
